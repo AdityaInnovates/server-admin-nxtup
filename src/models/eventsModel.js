@@ -12,7 +12,7 @@ const eventsSchema= new Schema({
     Deadline:Number,
     Cost:Number,
     Banner:String,
-    ClubLinkedTo:String,
+    Organizer:String,
     Form:String
 })
 

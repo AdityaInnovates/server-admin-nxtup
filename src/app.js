@@ -15,7 +15,10 @@ app.listen(PORT,()=>{
 const clubRoutes = require('./controllers/clubController')
 const eventsRoutes = require('./controllers/eventsController')
 const loginRoutes = require('./controllers/loginController')
+const imageRoutes = require("./src/routes/imageRoute.js");
 
+
+app.use("/api/uploadImage", imageRoutes);
 app.use('/clubs',clubRoutes)
 app.use('/events',eventsRoutes)
 app.use('/login',loginRoutes)
