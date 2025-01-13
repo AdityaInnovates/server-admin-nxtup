@@ -1,6 +1,6 @@
 const mongoose = require('mongoose')
 
-const eventsSchema= new Schema({
+const eventsSchema= new mongoose.Schema({
     Title:String,
     Description:String,
     Date:Number,
@@ -12,8 +12,8 @@ const eventsSchema= new Schema({
     Deadline:Number,
     Cost:Number,
     Banner:String,
-    Organizer:String,
-    Form:String
+    ClubLinkedTo:String,
+    Form:Object
 })
 
 const events = mongoose.model('events', eventsSchema)
