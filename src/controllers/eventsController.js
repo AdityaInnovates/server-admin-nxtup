@@ -1,3 +1,4 @@
+const { default: mongoose } = require("mongoose");
 const Events = require("../models/eventsModel")
 
 const fetchEvents = async (req, res) => {
@@ -81,7 +82,7 @@ const addEvent = async (req, res) => {
         if (!title || !description || !date || !location || !time || !banner || ! organizer || !prizeWorth || !deadline || !cost || !teamsize || !rulebook) {
             return res.status(400).json({
                 success: false,
-                message: 'All fields (title, description, date, location, time, clubs, clans) are required.',
+                message: 'All fields are required.',
             });
         }
 
@@ -99,8 +100,7 @@ const addEvent = async (req, res) => {
             PrizeWorth: prizeWorth,
             Deadline:deadline,
             Cost: cost,
-            Banner: image,
-            
+            Banner: banner,
         });
 
         // Save the new event to the database

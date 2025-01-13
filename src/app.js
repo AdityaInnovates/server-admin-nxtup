@@ -6,7 +6,7 @@ const cors = require('cors');
 
 app.use(cors());
 
-app.use('port', process.env.PORT || 3000)
+app.use(express.json())
 
 const PORT = process.env.PORT || 5555
 if (!process.env.PORT) {
@@ -19,9 +19,9 @@ app.get('/', (req, res) => {
 })
 
 // const clubRoutes = require('./controllers/clubController')
-const eventsRoutes = require('./controllers/eventsController')
-const loginRoutes = require('./controllers/loginController')
-const imageRoutes = require("./controllers/imageController");
+const eventsRoutes = require('./routes/eventsRoutes')
+const loginRoutes = require('./routes/loginRoutes')
+const imageRoutes = require("./routes/imageRoutes");
 
 app.use("/api/uploadImage", imageRoutes);
 // app.use('/api/clubs', clubRoutes);
