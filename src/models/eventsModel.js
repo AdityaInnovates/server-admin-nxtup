@@ -13,7 +13,7 @@ const eventsSchema= new mongoose.Schema({
     Cost:Number,
     Banner:String,
     ClubLinkedTo:String,
-    Form:String
+    Form:Object
 })
 
 const events = mongoose.model('events', eventsSchema)
