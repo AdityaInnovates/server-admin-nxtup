@@ -4,6 +4,7 @@ const eventsSchema= new mongoose.Schema({
     Title:String,
     Description:String,
     Date:Number,
+    Time:Number,
     Location:String,
     Rulebook:String,
     Registered:Number,
@@ -12,7 +13,7 @@ const eventsSchema= new mongoose.Schema({
     Deadline:Number,
     Cost:Number,
     Banner:String,
-    ClubLinkedTo:String,
+    Organizer:String,
     Form:Object
 })
 

@@ -1,8 +1,4 @@
-<<<<<<< HEAD
 const Events = require("../models/eventsModel")
-=======
-const Events = require('../models/eventsModel');
->>>>>>> refs/remotes/origin/main
 
 const fetchEvents = async (req, res) => {
     try {
@@ -13,21 +9,13 @@ const fetchEvents = async (req, res) => {
                 success: true,
                 data: events,
             });
-<<<<<<< HEAD
         }
-=======
-        } else {
->>>>>>> refs/remotes/origin/main
 
-            return res.status(404).json({
-                success: false,
-                message: "No events found.",
-            });
-<<<<<<< HEAD
+        return res.status(404).json({
+            success: false,
+            message: "No events found.",
+        });
         
-=======
-        }
->>>>>>> refs/remotes/origin/main
     } catch (error) {
         console.error("Error fetching events:", error);
         return res.status(500).json({
@@ -38,7 +26,6 @@ const fetchEvents = async (req, res) => {
     }
 };
 
-<<<<<<< HEAD
 
 
 
@@ -89,9 +76,9 @@ const updateEvent = async (req, res) => {
 const addEvent = async (req, res) => {
     try {
         // Destructure event data from the request body
-        const { title, description, image, date, time, location,rulebook, organizer, prize, cost, teamsize } = req.body;
+        const { title, description, banner, date, time, location,rulebook, organizer, prizeWorth,deadline, cost, teamsize } = req.body;
 
-        if (!title || !description || !date || !location || !time || !image || ! organizer || !prize || !cost || !teamsize || !rulebook) {
+        if (!title || !description || !date || !location || !time || !banner || ! organizer || !prizeWorth || !deadline || !cost || !teamsize || !rulebook) {
             return res.status(400).json({
                 success: false,
                 message: 'All fields (title, description, date, location, time, clubs, clans) are required.',
@@ -102,79 +89,18 @@ const addEvent = async (req, res) => {
         const newEvent = new Events({
             Title: title,
             Description: description,
+            Banner:banner,
             Date: date,
             Location: location,
-            
+            Time:time,
+            Rulebook:rulebook,
+            Organizer:organizer,
             TeamSize: teamsize,
-            Prize: prize,
-            
+            PrizeWorth: prizeWorth,
+            Deadline:deadline,
             Cost: cost,
             Banner: image,
             
-=======
-const updateEvent = async (req, res) => {
-  try {
-    const { eventId } = req.params.eventId;
-    const updateData = req.body;
-
-    if (!eventId) {
-      return res.status(400).json({
-        success: false,
-        message: 'Event ID is required',
-      });
-    }
-    
-    const updatedEvent = await Events.findByIdAndUpdate(
-      eventId,        
-      updateData,     
-      { new: true }   
-    );
-
-    if (!updatedEvent) {
-      return res.status(404).json({
-        success: false,
-        message: 'Event not found',
-      });
-    }
-
-
-    return res.status(200).json({
-      success: true,
-      message: 'Event updated successfully',
-      data: updatedEvent,
-    });
-  } catch (error) {
-
-    console.error('Error updating event:', error);
-
-    return res.status(500).json({
-      success: false,
-      message: 'An error occurred while updating the event.',
-      error: error.message,  
-    });
-  }
-};
-
-
-const addEvent = async (req, res) => {
-    try {
-        // Destructure event data from the request body
-        const { title, description, date, location } = req.body;
-
-    if (!title || !description || !date || !location || !time || !clubs || !clans) {
-      return res.status(400).json({
-        success: false,
-        message: 'All fields (title, description, date, location, time, clubs, clans) are required.',
-      });
-    }
-
-        // Create a new event document
-        const newEvent = new Events({
-            title,
-            description,
-            date,
-            location,
->>>>>>> refs/remotes/origin/main
         });
 
         // Save the new event to the database
@@ -200,11 +126,4 @@ module.exports = {
     fetchEvents,
     updateEvent,
     addEvent,
-<<<<<<< HEAD
 };
-=======
-};
-
-
-
->>>>>>> refs/remotes/origin/main

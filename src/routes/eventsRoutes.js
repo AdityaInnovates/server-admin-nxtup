@@ -1,10 +1,10 @@
 const express = require("express");
 
-const {fetchEvents} = require('../controllers/eventsControllers')
+const {fetchEvents} = require('../controllers/eventsController')
 
-const {addEvent} = require('../controllers/eventsControllers')
+const {addEvent} = require('../controllers/eventsController')
 
-const {updateEvent} = require('../controllers/eventsControllers')
+const {updateEvent} = require('../controllers/eventsController')
 
 const router = express.Router()
 
