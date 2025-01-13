@@ -40,10 +40,10 @@ const uploadImage = async (req, res) => {
       console.log(uploadResult);
 
       // Optimize delivery by resizing and applying auto-format and auto-quality
-      const optimizeUrl = cloudinary.url("images", {
-        fetch_format: "auto",
-        quality: "auto",
-      });
+      // const optimizeUrl = cloudinary.url("images", {
+      //   fetch_format: "auto",
+      //   quality: "auto",
+      // });
       res.status(200).json({
         message: "Image uploaded successfully",
         filePath: uploadResult.url, // Return the file path or URL for front-end usage
