@@ -1,21 +1,28 @@
 const express = require('express')
 const router = express.Router()
-const user = require('../models/loginModel')
+const userSchema = require('../models/loginModel')
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
+const mongoose = require('mongoose')
 const verifyToken = require('../middleware/authMiddleware')
 
-router.post('/login', async (req,res)=>{
+const loginPost = async (req,res)=>{
     try{
-        const {User, Password} = req.body;
-        const user = await User.findOne({
-            Email:User,
+        // const Email = "lele"
+        // const Password = "lele"
+        var {Email, Password} = req.body;
+        const user = await userSchema.findOne({
+            Email:Email,
         })
-
         
+        // Password = await bcrypt.hash(Password, await bcrypt.genSalt(14))
+        console.log(Password, user.Password)
+
         if(!user){
             return res.status(400).json({ status: false, message: "Invalid email or password" })
         }
+
+
 
         const isMatch = await bcrypt.compare(Password, user.Password)
         
@@ -26,6 +33,7 @@ router.post('/login', async (req,res)=>{
 
         const token = jwt.sign({_id: user._id}, process.env.SALT)
         
+        // res.status(201).json({ status: true, message: "SignedIn successfully" })
         res.status(201).json({ status: true, message: "SignedIn successfully", token })
     }
     catch(err){
@@ -34,6 +42,6 @@ router.post('/login', async (req,res)=>{
             message:err
         })
     }
-})
+}
 
-module.exports = router
+module.exports = loginPost
