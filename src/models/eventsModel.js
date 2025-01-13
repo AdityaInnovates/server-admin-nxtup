@@ -1,6 +1,6 @@
 const mongoose = require('mongoose')
 
-const eventsSchema= new Schema({
+const eventsSchema= new mongoose.Schema({
     Title:String,
     Description:String,
     Date:Number,
