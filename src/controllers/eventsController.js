@@ -1,4 +1,5 @@
-const Events = require('../models/eventsModel');
+const { default: mongoose } = require("mongoose");
+const Events = require("../models/eventsModel")
 
 const fetchEvents = async (req, res) => {
     try {
@@ -9,13 +10,13 @@ const fetchEvents = async (req, res) => {
                 success: true,
                 data: events,
             });
-        } else {
-
-            return res.status(404).json({
-                success: false,
-                message: "No events found.",
-            });
         }
+
+        return res.status(404).json({
+            success: false,
+            message: "No events found.",
+        });
+        
     } catch (error) {
         console.error("Error fetching events:", error);
         return res.status(500).json({
@@ -26,68 +27,80 @@ const fetchEvents = async (req, res) => {
     }
 };
 
+
+
+
 const updateEvent = async (req, res) => {
-  try {
-    const { eventId } = req.params.eventId;
-    const updateData = req.body;
-
-    if (!eventId) {
-      return res.status(400).json({
+    try {
+      const { eventId } = req.params.eventId;
+      const updateData = req.body;
+  
+      if (!eventId) {
+        return res.status(400).json({
+          success: false,
+          message: 'Event ID is required',
+        });
+      }
+      
+      const updatedEvent = await Events.findByIdAndUpdate(
+        eventId,        
+        updateData,     
+        { new: true }   
+      );
+  
+      if (!updatedEvent) {
+        return res.status(404).json({
+          success: false,
+          message: 'Event not found',
+        });
+      }
+  
+  
+      return res.status(200).json({
+        success: true,
+        message: 'Event updated successfully',
+        data: updatedEvent,
+      });
+    } catch (error) {
+  
+      console.error('Error updating event:', error);
+  
+      return res.status(500).json({
         success: false,
-        message: 'Event ID is required',
+        message: 'An error occurred while updating the event.',
+        error: error.message,  
       });
     }
-    
-    const updatedEvent = await Events.findByIdAndUpdate(
-      eventId,        
-      updateData,     
-      { new: true }   
-    );
+  };
 
-    if (!updatedEvent) {
-      return res.status(404).json({
-        success: false,
-        message: 'Event not found',
-      });
-    }
-
-
-    return res.status(200).json({
-      success: true,
-      message: 'Event updated successfully',
-      data: updatedEvent,
-    });
-  } catch (error) {
-
-    console.error('Error updating event:', error);
-
-    return res.status(500).json({
-      success: false,
-      message: 'An error occurred while updating the event.',
-      error: error.message,  
-    });
-  }
-};
-
-
+  
 const addEvent = async (req, res) => {
     try {
         // Destructure event data from the request body
-        const { title, description, date, location } = req.body;
+        const { title, description, banner, date, time, location,rulebook, organizer, prizeWorth,deadline, cost, teamsize } = req.body;
 
-    if (!title || !description || !date || !location || !time || !clubs || !clans) {
-      return res.status(400).json({
-        success: false,
-        message: 'All fields (title, description, date, location, time, clubs, clans) are required.',
-      });
-    }
+        if (!title || !description || !date || !location || !time || !banner || ! organizer || !prizeWorth || !deadline || !cost || !teamsize || !rulebook) {
+            return res.status(400).json({
+                success: false,
+                message: 'All fields are required.',
+            });
+        }
 
         // Create a new event document
         const newEvent = new Events({
-            title,
-            description,
-            date,
-            location,
+            Title: title,
+            Description: description,
+            Banner:banner,
+            Date: date,
+            Location: location,
+            Time:time,
+            Rulebook:rulebook,
+            Organizer:organizer,
+            TeamSize: teamsize,
+            PrizeWorth: prizeWorth,
+            Deadline:deadline,
+            Cost: cost,
+            Banner: banner,
         });
 
         // Save the new event to the database
@@ -114,6 +127,3 @@ module.exports = {
     updateEvent,
     addEvent,
 };
-
-
-
