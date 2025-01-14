@@ -88,25 +88,12 @@ const addEvent = async (req, res) => {
       teamsize,
     } = req.body;
 
-    if (
-      !title ||
-      !description ||
-      !date ||
-      !location ||
-      !time ||
-      !banner ||
-      !organizer ||
-      !prizeWorth ||
-      !deadline ||
-      !cost ||
-      !teamsize ||
-      !rulebook
-    ) {
-      return res.status(400).json({
-        success: false,
-        message: "All fields are required.",
-      });
-    }
+        if (!title || !description  || !location || !time ) {
+            return res.status(400).json({
+                success: false,
+                message: 'All fields are required.',
+            });
+        }
 
     // Create a new event document
     const newEvent = new Events({
