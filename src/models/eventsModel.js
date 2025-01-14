@@ -15,8 +15,11 @@ const eventsSchema = new mongoose.Schema({
   Cost: Number,
   Banner: String,
   Organizer: String,
-  Form: { type: Object },
-});
+  Form: { type: Object, required: false, default: {} },
+    IsActive: { type: Boolean, required: false, default: true },
+  },
+  { timestamps: true }
+);
 
 const events = mongoose.model("events", eventsSchema);
 module.exports = events;

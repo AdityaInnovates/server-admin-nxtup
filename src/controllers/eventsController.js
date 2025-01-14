@@ -90,12 +90,13 @@ const addEvent = async (req, res) => {
 
     } = req.body;
 
-        if (!title || !description  || !location || !time ) {
-            return res.status(400).json({
-                success: false,
-                message: 'All fields are required.',
-            });
-        }
+    if (!title || !description || !location || !time || !Date) {
+      console.log(title, description, location, time);
+      return res.status(400).json({
+        success: false,
+        message: "All fields are required.",
+      });
+    }
 
     // Create a new event document
     const newEvent = new Events({
