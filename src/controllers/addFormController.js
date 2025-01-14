@@ -9,10 +9,10 @@ const addFormController = async (req, res) => {
       { Form: Form },
       { new: true }
     );
-    res.send({ status: true });
+    res.send({ status: true, message: "Form added sucessfully." });
   } catch (error) {
     console.log(error);
-    res.send({ status: false });
+    res.send({ status: false, message: "Error occured." });
   }
 };
 

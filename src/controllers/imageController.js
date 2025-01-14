@@ -2,6 +2,7 @@ const express = require("express");
 const multer = require("multer");
 const { v2 } = require("cloudinary");
 const cloudinary = v2;
+const fs = require("fs");
 
 const uploadImage = async (req, res) => {
   try {
@@ -38,6 +39,13 @@ const uploadImage = async (req, res) => {
         });
 
       console.log(uploadResult);
+
+      // Delete the file from the local filesystem
+      fs.unlink(req.file.path, (err) => {
+        if (err) {
+          console.error("Error deleting file:", err);
+        }
+      });
 
       // Optimize delivery by resizing and applying auto-format and auto-quality
       // const optimizeUrl = cloudinary.url("images", {
