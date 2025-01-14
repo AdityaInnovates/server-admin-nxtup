@@ -1,12 +1,19 @@
-import { events } from "../models/eventsModel";
+var events = require("../models/eventsModel");
 
-const addFormController = (req, res) => {
+const addFormController = async (req, res) => {
   try {
     var { id, Form } = req.body;
-    var dbres = events.findByIdAndUpdate(id, { Form }, { new: true });
+    // Form.
+    var dbres = await events.findByIdAndUpdate(
+      id,
+      { Form: Form },
+      { new: true }
+    );
+    res.send({ status: true });
   } catch (error) {
+    console.log(error);
     res.send({ status: false });
   }
 };
 
-export default addFormController;
+module.exports = addFormController;
