@@ -85,7 +85,9 @@ const addEvent = async (req, res) => {
       prizeWorth,
       deadline,
       cost,
-      teamsize,
+      teamsizestart,
+      teamsizeend,
+
     } = req.body;
 
         if (!title || !description  || !location || !time ) {
@@ -110,6 +112,8 @@ const addEvent = async (req, res) => {
       Deadline: deadline,
       Cost: cost,
       Banner: banner,
+      TeamSizeStart:teamsizestart,
+      TeamSizeEnd:teamsizeend,
     });
 
     // Save the new event to the database
