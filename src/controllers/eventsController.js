@@ -108,7 +108,6 @@ const addEvent = async (req, res) => {
       Time: time,
       Rulebook: rulebook,
       Organizer: organizer,
-      TeamSize: teamsize,
       PrizeWorth: prizeWorth,
       Deadline: deadline,
       Cost: cost,
