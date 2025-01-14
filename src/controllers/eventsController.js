@@ -79,7 +79,7 @@ const addEvent = async (req, res) => {
         // Destructure event data from the request body
         const { title, description, banner, date, time, location,rulebook, organizer, prizeWorth,deadline, cost, teamsize } = req.body;
 
-        if (!title || !description || !date || !location || !time || !banner || ! organizer || !prizeWorth || !deadline || !cost || !teamsize || !rulebook) {
+        if (!title || !description  || !location || !time ) {
             return res.status(400).json({
                 success: false,
                 message: 'All fields are required.',

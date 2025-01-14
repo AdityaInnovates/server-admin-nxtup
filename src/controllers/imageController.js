@@ -46,7 +46,7 @@ const uploadImage = async (req, res) => {
       // });
       res.status(200).json({
         message: "Image uploaded successfully",
-        filePath: uploadResult.url, // Return the file path or URL for front-end usage
+        filePath: uploadResult.secure_url, // Return the file path or URL for front-end usage
       });
       // console.log(optimizeUrl);
 
