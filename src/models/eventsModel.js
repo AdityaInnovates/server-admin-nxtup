@@ -17,7 +17,7 @@ const eventsSchema = new mongoose.Schema(
     Banner: String,
     Organizer: String,
     Form: { type: Object, required: false, default: {} },
-    IsActive: { type: Boolean, required: false, default: true },
+    IsActive: { type: Boolean, required: false, default: false },
   },
   { timestamps: true }
 );

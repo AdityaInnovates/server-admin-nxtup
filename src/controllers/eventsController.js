@@ -113,6 +113,7 @@ const addEvent = async (req, res) => {
       Banner: banner,
       TeamSizeStart: teamSizeStart,
       TeamSizeEnd: teamSizeEnd,
+      IsActive: false,
     });
 
     // Save the new event to the database
