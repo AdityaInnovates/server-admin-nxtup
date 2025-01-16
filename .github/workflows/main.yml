@@ -27,8 +27,8 @@ jobs:
 
       - name: Set Git Identity
         run: |
-          git config --global user.email "you@example.com"
-          git config --global user.name "Your Name"
+          git config --global user.email "githubBot@github.com"
+          git config --global user.name "Github Workflow"
 
       - name: Check for Changes
         run: |
