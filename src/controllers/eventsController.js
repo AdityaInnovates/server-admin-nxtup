@@ -102,7 +102,7 @@ const addEvent = async (req, res) => {
         message: "Team size can't be negative.",
       });
     }
-    if (teamSizeEnd < teamSizeStart) {
+    if (teamSizeEnd > teamSizeStart) {
       return res.send({
         success: false,
         status: false,
