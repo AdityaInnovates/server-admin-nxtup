@@ -13,18 +13,21 @@ const fetchEvents = async (req, res) => {
     if (events.length > 0) {
       return res.status(200).json({
         success: true,
+        status: true,
         data: events,
       });
     }
 
     return res.status(404).json({
       success: false,
+      status: false,
       message: "No events found.",
     });
   } catch (error) {
     console.error("Error fetching events:", error);
     return res.status(500).json({
       success: false,
+      status: false,
       message: "An error occurred while fetching event data.",
       error: error.message,
     });
@@ -39,6 +42,7 @@ const updateEvent = async (req, res) => {
     if (!eventId) {
       return res.status(400).json({
         success: false,
+        status: false,
         message: "Event ID is required",
       });
     }
@@ -50,12 +54,14 @@ const updateEvent = async (req, res) => {
     if (!updatedEvent) {
       return res.status(404).json({
         success: false,
+        status: false,
         message: "Event not found",
       });
     }
 
     return res.status(200).json({
       success: true,
+      status: true,
       message: "Event updated successfully",
       data: updatedEvent,
     });
@@ -64,6 +70,7 @@ const updateEvent = async (req, res) => {
 
     return res.status(500).json({
       success: false,
+      status: false,
       message: "An error occurred while updating the event.",
       error: error.message,
     });
@@ -88,11 +95,25 @@ const addEvent = async (req, res) => {
       teamSizeStart,
       teamSizeEnd,
     } = req.body;
-
+    if (teamSizeStart < 0 || teamSizeEnd < 0) {
+      return res.send({
+        success: false,
+        status: false,
+        message: "Team size can't be negative.",
+      });
+    }
+    if (teamSizeEnd < teamSizeStart) {
+      return res.send({
+        success: false,
+        status: false,
+        message: "Max team size should be greater then min team size.",
+      });
+    }
     if (!title || !description || !location || !time || !Date) {
       console.log(title, description, location, time);
       return res.status(400).json({
         success: false,
+        status: false,
         message: "All fields are required.",
       });
     }
@@ -121,6 +142,7 @@ const addEvent = async (req, res) => {
 
     return res.status(201).json({
       success: true,
+      status: true,
       data: savedEvent,
       message: "Event created successfully.",
     });
@@ -128,6 +150,7 @@ const addEvent = async (req, res) => {
     console.error("Error creating event:", error);
     return res.status(500).json({
       success: false,
+      status: false,
       message: "An error occurred while creating the event.",
       error: error.message,
     });
