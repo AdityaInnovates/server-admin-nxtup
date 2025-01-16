@@ -106,7 +106,7 @@ const addEvent = async (req, res) => {
       return res.send({
         success: false,
         status: false,
-        message: "Max team size should be greater then min team size.",
+        message: "Max team size should be greater then min team size. ",
       });
     }
     if (!title || !description || !location || !time || !Date) {
