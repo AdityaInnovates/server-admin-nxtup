@@ -1,0 +1,40 @@
+name: Sync Fork
+
+on:
+  schedule:
+    - cron: '*/1 * * * *' # Every 5 minutes
+  workflow_dispatch:
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Upstream Repository
+        uses: actions/checkout@v3
+        with:
+          repository: https://github.com/devclub-nstru/server-admin-nxtup
+          ref: main
+
+      - name: Checkout Forked Repository
+        uses: actions/checkout@v3
+        with:
+          repository: AdityaInnovates/server-admin-nxtup
+          path: forked-repo
+
+      - name: Check for Changes
+        run: |
+          git fetch origin
+          UPSTREAM_HASH=$(git rev-parse HEAD)
+          cd forked-repo
+          git fetch origin
+          FORK_HASH=$(git rev-parse origin/main)
+          if [ "$UPSTREAM_HASH" = "$FORK_HASH" ]; then
+            echo "No changes detected, fork is already synced."
+            exit 0
+          fi
+
+      - name: Sync Changes
+        run: |
+          cd ..
+          git remote add forked https://github.com/AdityaInnovates/server-admin-nxtup.git
+          git push forked main
