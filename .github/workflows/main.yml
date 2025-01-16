@@ -14,6 +14,7 @@ jobs:
         with:
           repository: devclub-nstru/server-admin-nxtup
           ref: main
+          fetch-depth: 0 # Fetch the full history
           path: upstream-repo
 
       - name: Checkout Forked Repository
@@ -21,15 +22,14 @@ jobs:
         with:
           repository: AdityaInnovates/server-admin-nxtup
           ref: main
+          fetch-depth: 0 # Fetch the full history
           path: forked-repo
 
       - name: Check for Changes
         run: |
           cd upstream-repo
-          git fetch origin
           UPSTREAM_HASH=$(git rev-parse HEAD)
           cd ../forked-repo
-          git fetch origin
           FORK_HASH=$(git rev-parse origin/main)
           if [ "$UPSTREAM_HASH" = "$FORK_HASH" ]; then
             echo "No changes detected, fork is already synced."
@@ -41,5 +41,5 @@ jobs:
           cd forked-repo
           git remote add upstream ../upstream-repo
           git fetch upstream
-          git merge upstream/main
+          git merge upstream/main --no-ff
           git push origin main
