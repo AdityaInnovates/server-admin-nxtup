@@ -25,6 +25,11 @@ jobs:
           fetch-depth: 0 # Fetch the full history
           path: forked-repo
 
+      - name: Set Git Identity
+        run: |
+          git config --global user.email "you@example.com"
+          git config --global user.name "Your Name"
+
       - name: Check for Changes
         run: |
           cd upstream-repo
