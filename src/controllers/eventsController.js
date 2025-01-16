@@ -102,13 +102,13 @@ const addEvent = async (req, res) => {
         message: "Team size can't be negative.",
       });
     }
-    if (teamSizeEnd > teamSizeStart) {
-      return res.send({
-        success: false,
-        status: false,
-        message: "Max team size should be greater then min team size. ",
-      });
-    }
+    // if (teamSizeEnd > teamSizeStart) {
+    //   return res.send({
+    //     success: false,
+    //     status: false,
+    //     message: "Max team size should be greater then min team size. ",
+    //   });
+    // }
     if (!title || !description || !location || !time || !Date) {
       console.log(title, description, location, time);
       return res.status(400).json({
