@@ -2,7 +2,7 @@ name: Sync Fork
 
 on:
   schedule:
-    - cron: '*/1 * * * *' # Every 5 minutes
+    - cron: '*/1 * * * *' # Every minute
   workflow_dispatch:
 
 jobs:
@@ -14,6 +14,7 @@ jobs:
         with:
           repository: devclub-nstru/server-admin-nxtup
           ref: main
+          path: upstream-repo
 
       - name: Checkout Forked Repository
         uses: actions/checkout@v3
@@ -23,9 +24,10 @@ jobs:
 
       - name: Check for Changes
         run: |
+          cd upstream-repo
           git fetch origin
           UPSTREAM_HASH=$(git rev-parse HEAD)
-          cd forked-repo
+          cd ../forked-repo
           git fetch origin
           FORK_HASH=$(git rev-parse origin/main)
           if [ "$UPSTREAM_HASH" = "$FORK_HASH" ]; then
@@ -35,6 +37,7 @@ jobs:
 
       - name: Sync Changes
         run: |
-          cd ..
-          git remote add forked https://github.com/AdityaInnovates/server-admin-nxtup.git
-          git push forked main
+          cd forked-repo
+          git remote add upstream ../upstream-repo
+          git pull upstream main
+          git push origin main
